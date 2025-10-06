@@ -143,6 +143,12 @@ const onRequest = (req, res) => {
             );
         }
 
+        if (filteredCountries.length === 0) {
+            res.writeHead(204);
+            res.end();
+            return;
+        }
+
         const responseJSON = JSON.stringify({ countries: filteredCountries });
 
         if (req.method === 'GET') {
@@ -161,6 +167,119 @@ const onRequest = (req, res) => {
         }
         return;
     }
+
+    if (pathname === '/getCountryByName') {
+        const { name } = query;
+
+        if (!name) {
+            res.writeHead(400, { 'Content-Type': 'application/json' });
+            res.write(JSON.stringify({ message: 'Name query parameter is required', id: 'missingName' }));
+            res.end();
+            return;
+        }
+
+        const country = countries.find(
+            (c) => c.name.toLowerCase() === name.toLowerCase()
+        );
+
+        if (!country) {
+            res.writeHead(204);
+            res.end();
+            return;
+        }
+
+        const responseJSON = JSON.stringify({ country });
+
+        if (req.method === 'GET') {
+            res.writeHead(200, {
+                'Content-Type': 'application/json',
+                'Content-Length': Buffer.byteLength(responseJSON),
+            });
+            res.write(responseJSON);
+            res.end();
+        } else if (req.method === 'HEAD') {
+            res.writeHead(200, {
+                'Content-Type': 'application/json',
+                'Content-Length': Buffer.byteLength(responseJSON),
+            });
+            res.end();
+        }
+    }
+
+    if (pathname === '/getCountriesByTimezone') {
+        const { timezone } = query;
+
+        let filteredCountries = countries;
+
+        if (timezone) {
+            filteredCountries = countries.filter((c) =>
+                c.timezones.some((t) => t.toLowerCase() === timezone.toLowerCase())
+            );
+        }
+
+        if (filteredCountries.length === 0) {
+            res.writeHead(204);
+            res.end();
+            return;
+        }
+
+        const responseJSON = JSON.stringify({ countries: filteredCountries });
+
+        if (req.method === 'GET') {
+            res.writeHead(200, {
+                'Content-Type': 'application/json',
+                'Content-Length': Buffer.byteLength(responseJSON),
+            });
+            res.write(responseJSON);
+            res.end();
+        } else if (req.method === 'HEAD') {
+            res.writeHead(200, {
+                'Content-Type': 'application/json',
+                'Content-Length': Buffer.byteLength(responseJSON),
+            });
+            res.end();
+        }
+    }
+
+    if (pathname === '/getCountriesByLanguage') {
+        const { language } = query;
+
+        if (!language) {
+            res.writeHead(400, { 'Content-Type': 'application/json' });
+            res.write(JSON.stringify({ message: 'Language query parameter is required', id: 'missingLanguage' }));
+            res.end();
+            return;
+        }
+
+        const filteredCountries = countries.filter((c) =>
+            c.languages.some((l) => l.toLowerCase() === language.toLowerCase())
+        );
+
+        if (filteredCountries.length === 0) {
+            res.writeHead(204);
+            res.end();
+            return;
+        }
+
+        const responseJSON = JSON.stringify({ countries: filteredCountries });
+
+        if (req.method === 'GET') {
+            res.writeHead(200, {
+                'Content-Type': 'application/json',
+                'Content-Length': Buffer.byteLength(responseJSON),
+            });
+            res.write(responseJSON);
+            res.end();
+        } else if (req.method === 'HEAD') {
+            res.writeHead(200, {
+                'Content-Type': 'application/json',
+                'Content-Length': Buffer.byteLength(responseJSON),
+            });
+            res.end();
+        }
+    }
+
+
 
 
 
