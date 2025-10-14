@@ -1,12 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
     <title>Countries</title>
 </head>
+
 <body>
-    <p>Client page running, test</p>
+    <h1>Countries Explorer</h1>
+
+    <section id="view-section">
+        <h2>View Countries</h2>
+        <form id="view-form">
+            <label for="region">Region:</label>
+            <input type="text" id="region" name="region" placeholder="e.g. Asia">
+
+            <label for="subregion">Subregion:</label>
+            <input type="text" id="subregion" name="subregion" placeholder="e.g. South Asia">
+
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" placeholder="e.g. India">
+
+            <button type="submit">Search</button>
+        </form>
+
+        <div id="results"></div>
+    </section>
+
+    <section id="add-section">
+        <h2>Add Country</h2>
+        <form id="add-form">
+            <label for="add-name">Name:</label>
+            <input type="text" id="add-name" name="name" required>
+
+            <label for="add-capital">Capital:</label>
+            <input type="text" id="add-capital" name="capital" required>
+
+            <label for="add-region">Region:</label>
+            <input type="text" id="add-region" name="region" required>
+
+            <button type="submit">Add Country</button>
+        </form>
+    </section>
+
+    <script src="../src/index.js"></script>
 </body>
+
 </html>
