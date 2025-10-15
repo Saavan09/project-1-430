@@ -85,7 +85,8 @@ const getCountriesByTimezone = (request, response, countries) => {
 
     if (timezone) {
         filteredCountries = countries.filter((c) =>
-            c.timezones.some((t) => t.toLowerCase() === timezone.toLowerCase())
+            Array.isArray(c.timezones) &&
+            c.timezones.some((t) => t.abbreviation.toLowerCase() === timezone.toLowerCase())
         );
     }
 
@@ -100,18 +101,18 @@ const getCountriesByTimezoneMeta = (request, response) => {
     respondJSONMeta(request, response, 200);
 };
 
-const getCountriesByLanguage = (request, response, countries) => {
-    const { language } = request.query;
+const getCountriesByCapital = (request, response, countries) => {
+    const { capital } = request.query;
 
-    if (!language) {
+    if (!capital) {
         return respondJSON(request, response, 400, {
-            message: 'Language query parameter is required',
-            id: 'missingLanguage',
+            message: 'Capital query parameter is required',
+            id: 'missingCapital',
         });
     }
 
     const filteredCountries = countries.filter((c) =>
-        c.languages.some((l) => l.toLowerCase() === language.toLowerCase())
+        c.capital.toLowerCase() === capital.toLowerCase()
     );
 
     if (filteredCountries.length === 0) {
@@ -121,7 +122,7 @@ const getCountriesByLanguage = (request, response, countries) => {
     return respondJSON(request, response, 200, { countries: filteredCountries });
 };
 
-const getCountriesByLanguageMeta = (request, response) => {
+const getCountriesByCapitalMeta = (request, response) => {
     respondJSONMeta(request, response, 200);
 };
 
@@ -213,8 +214,8 @@ module.exports.getCountryByNameMeta = getCountryByNameMeta;
 module.exports.getCountriesByTimezone = getCountriesByTimezone;
 module.exports.getCountriesByTimezoneMeta = getCountriesByTimezoneMeta;
 
-module.exports.getCountriesByLanguage = getCountriesByLanguage;
-module.exports.getCountriesByLanguageMeta = getCountriesByLanguageMeta;
+module.exports.getCountriesByCapital = getCountriesByCapital;
+module.exports.getCountriesByCapitalMeta = getCountriesByCapitalMeta;
 
 module.exports.addCountry = addCountry;
 module.exports.editCountry = editCountry;

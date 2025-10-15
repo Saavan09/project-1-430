@@ -138,11 +138,11 @@ const onRequest = (req, res) => {
             }
             break;
 
-        case '/getCountriesByLanguage':
+        case '/getCountriesByCapital':
             if (req.method === 'GET') {
-                jsonResponses.getCountriesByLanguage(req, res, countries);
+                jsonResponses.getCountriesByCapital(req, res, countries);
             } else if (req.method === 'HEAD') {
-                jsonResponses.getCountriesByLanguageMeta(req, res);
+                jsonResponses.getCountriesByCapitalMeta(req, res);
             }
             break;
 

@@ -16,19 +16,37 @@ window.onload = () => {
         const region = document.querySelector("#region").value;
         const subregion = document.querySelector("#subregion").value;
         const name = document.querySelector("#name").value;
+        const timezoneInput = document.querySelector("#timezone").value;
+        const capitalInput = document.querySelector("#capital").value;
 
-        const query = new URLSearchParams({
-            region,
-            subregion,
-            name
-        });
+        let endpoint = "/getCountries"; // default endpoint
+        const params = {};
+
+        if (region) params.region = region;
+        if (subregion) params.subregion = subregion;
+        if (name) params.name = name;
+
+        //if only timezone filled
+        if (timezoneInput) {
+            endpoint = "/getCountriesByTimezone";
+            params.timezone = timezoneInput;
+        }
+
+        //if only capital filled
+        if (capitalInput) {
+            endpoint = "/getCountriesByCapital";
+            params.capital = capitalInput;
+        }
+
+        const query = new URLSearchParams(params);
 
         try {
-            const response = await fetch(`/getCountries?${query.toString()}`, {
+            const response = await fetch(`${endpoint}?${query.toString()}`, {
                 headers: {
                     "Accept": "application/json"
                 }
             });
+
 
             const data = await response.json();
 
@@ -41,7 +59,11 @@ window.onload = () => {
             } else {
                 data.countries.forEach(country => {
                     const p = document.createElement("p");
-                    p.textContent = `${country.name} — ${country.capital} (${country.region})`;
+                    //timezones list
+                    const timezoneStr = Array.isArray(country.timezones)
+                        ? country.timezones.map(t => t.abbreviation).join(', ')
+                        : '';
+                    p.textContent = `${country.name} — ${country.capital} (${country.region}, ${country.subregion}) — ${timezoneStr}`;
                     resultsDiv.appendChild(p);
                 });
             }

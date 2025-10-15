@@ -14,14 +14,25 @@
     <section id="view-section">
         <h2>View Countries</h2>
         <form id="view-form">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" placeholder="e.g. India">
+
+            <label for="capital">Capital:</label>
+            <input type="text" id="capital" name="capital" placeholder="e.g. New Delhi">
+
             <label for="region">Region:</label>
             <input type="text" id="region" name="region" placeholder="e.g. Asia">
+
+            <br>
+            <h4>Advanced Search Criteria</h4>
 
             <label for="subregion">Subregion:</label>
             <input type="text" id="subregion" name="subregion" placeholder="e.g. Southern Asia">
 
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" placeholder="e.g. India">
+            <label for="timezone">Timezone:</label>
+            <input type="text" id="timezone" name="timezone" placeholder="e.g. IST">
+
+
 
             <button type="submit">Search</button>
         </form>
