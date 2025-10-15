@@ -5,58 +5,83 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <title>Countries Explorer</title>
 </head>
 
-<body>
-    <h1>Countries Explorer</h1>
+<body class="bg-light">
 
-    <section id="view-section">
-        <h2>View Countries</h2>
-        <form id="view-form">
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" placeholder="e.g. India">
+    <div class="container py-5">
+        <h1 class="mb-4 text-center">Countries Explorer</h1>
 
-            <label for="capital">Capital:</label>
-            <input type="text" id="capital" name="capital" placeholder="e.g. New Delhi">
+        <section id="view-section" class="mb-5">
+            <h2 class="mb-3">View Countries</h2>
+            <form id="view-form" class="row g-3">
+                <div class="col-md-6">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="text" id="name" name="name" class="form-control" placeholder="e.g. India">
+                </div>
 
-            <label for="region">Region:</label>
-            <input type="text" id="region" name="region" placeholder="e.g. Asia">
+                <div class="col-md-6">
+                    <label for="capital" class="form-label">Capital</label>
+                    <input type="text" id="capital" name="capital" class="form-control" placeholder="e.g. New Delhi">
+                </div>
 
-            <br>
-            <h4>Advanced Search Criteria</h4>
+                <div class="col-md-6">
+                    <label for="region" class="form-label">Region</label>
+                    <input type="text" id="region" name="region" class="form-control" placeholder="e.g. Asia">
+                </div>
 
-            <label for="subregion">Subregion:</label>
-            <input type="text" id="subregion" name="subregion" placeholder="e.g. Southern Asia">
+                <div class="col-12">
+                    <h5 class="mt-3">Advanced Search Criteria</h5>
+                </div>
 
-            <label for="timezone">Timezone:</label>
-            <input type="text" id="timezone" name="timezone" placeholder="e.g. IST">
+                <div class="col-md-6">
+                    <label for="subregion" class="form-label">Subregion</label>
+                    <input type="text" id="subregion" name="subregion" class="form-control"
+                        placeholder="e.g. Southern Asia">
+                </div>
 
+                <div class="col-md-6">
+                    <label for="timezone" class="form-label">Timezone</label>
+                    <input type="text" id="timezone" name="timezone" class="form-control" placeholder="e.g. IST">
+                </div>
 
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary mt-3">Search</button>
+                </div>
+            </form>
 
-            <button type="submit">Search</button>
-        </form>
+            <div id="results" class="mt-4"></div>
+        </section>
 
-        <div id="results"></div>
-    </section>
+        <section id="add-section">
+            <h2 class="mb-3">Add/Update Country</h2>
+            <form id="add-form" class="row g-3">
+                <div class="col-md-6">
+                    <label for="add-name" class="form-label">Name</label>
+                    <input type="text" id="add-name" name="name" class="form-control" required>
+                </div>
 
-    <section id="add-section">
-        <h2>Add/Update Country</h2>
-        <form id="add-form">
-            <label for="add-name">Name:</label>
-            <input type="text" id="add-name" name="name" required>
+                <div class="col-md-6">
+                    <label for="add-capital" class="form-label">Capital</label>
+                    <input type="text" id="add-capital" name="capital" class="form-control" required>
+                </div>
 
-            <label for="add-capital">Capital:</label>
-            <input type="text" id="add-capital" name="capital" required>
+                <div class="col-md-6">
+                    <label for="add-region" class="form-label">Region</label>
+                    <input type="text" id="add-region" name="region" class="form-control" required>
+                </div>
 
-            <label for="add-region">Region:</label>
-            <input type="text" id="add-region" name="region" required>
+                <div class="col-12">
+                    <button type="submit" class="btn btn-success mt-3">Add Country</button>
+                </div>
+            </form>
 
-            <button type="submit">Add Country</button>
-        </form>
+            <div id="add-message" class="mt-4"></div>
+        </section>
+    </div>
 
-        <div id="add-message"></div>
-    </section>
 
     <script src="index.js"></script>
 </body>

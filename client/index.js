@@ -10,6 +10,7 @@ window.onload = () => {
     addForm.appendChild(addMessage);
 
 
+    //get endpoints
     viewForm.addEventListener("submit", async (e) => {
         e.preventDefault(); //stop the page from refreshing
 
@@ -75,6 +76,7 @@ window.onload = () => {
     });
 
 
+    //post endpoints
     addForm.addEventListener("submit", async (e) => {
         e.preventDefault();
 

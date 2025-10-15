@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Documentation</title>
+</head>
+
+<body>
+    <h1>Project 1 API Documentation</h1>
+    <p>
+        This page documents all available API endpoints for Project 1. My website is called Countries Explorer.
+    </p>
+
+    <hr>
+
+    <section>
+        <h2>GET <code>/getCountries</code></h2>
+        <p>Retrieve a list of countries, optionally filtered by query parameters.</p>
+
+        <h3>Supported Methods</h3>
+        <ul>
+            <li><code>GET</code></li>
+            <li><code>HEAD</code></li>
+        </ul>
+
+        <h3>Query Parameters</h3>
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Required</th>
+                <th>Description</th>
+            </tr>
+            <tr>
+                <td>region</td>
+                <td>string</td>
+                <td>optional</td>
+                <td>Filter by region name</td>
+            </tr>
+            <tr>
+                <td>subregion</td>
+                <td>string</td>
+                <td>optional</td>
+                <td>Filter by subregion name</td>
+            </tr>
+            <tr>
+                <td>name</td>
+                <td>string</td>
+                <td>optional</td>
+                <td>Filter by exact country name</td>
+            </tr>
+        </table>
+
+        <h3>Returns</h3>
+        <p><code>{ countries: [ ... ] }</code> – an array of country objects.</p>
+
+        <h3>Example</h3>
+        <div class="example">
+            GET /getCountries?region=Asia
+            Accept: application/json
+
+            200 OK
+            {
+            "countries": [
+            {
+            "name": "India",
+            "capital": "New Delhi",
+            "region": "Asia",
+            "subregion": "Southern Asia",
+            "timezones": [...]
+            }
+            ]
+            }
+        </div>
+    </section>
+
+    <hr>
+
+    <section>
+        <h2>GET <code>/getCountryByName</code></h2>
+        <p>Retrieve details for a single country by name.</p>
+
+        <h3>Supported Methods</h3>
+        <ul>
+            <li><code>GET</code></li>
+            <li><code>HEAD</code></li>
+        </ul>
+
+        <h3>Query Parameters</h3>
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Required</th>
+                <th>Description</th>
+            </tr>
+            <tr>
+                <td>name</td>
+                <td>string</td>
+                <td>required</td>
+                <td>Name of the country</td>
+            </tr>
+        </table>
+
+        <h3>Returns</h3>
+        <p><code>{ country: { ... } }</code> – the matching country object, or 204 if not found.</p>
+
+        <h3>Example</h3>
+        <div class="example">
+            GET /getCountryByName?name=India
+            Accept: application/json
+
+            200 OK
+            {
+            "country": {
+            "name": "India",
+            "capital": "New Delhi",
+            "region": "Asia",
+            ...
+            }
+            }
+        </div>
+    </section>
+
+    <hr>
+
+    <section>
+        <h2>GET <code>/getCountriesByTimezone</code></h2>
+        <p>Retrieve countries that match a specific timezone abbreviation.</p>
+
+        <h3>Supported Methods</h3>
+        <ul>
+            <li><code>GET</code></li>
+            <li><code>HEAD</code></li>
+        </ul>
+
+        <h3>Query Parameters</h3>
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Required</th>
+                <th>Description</th>
+            </tr>
+            <tr>
+                <td>timezone</td>
+                <td>string</td>
+                <td>required</td>
+                <td>Timezone abbreviation (e.g. <code>IST</code>)</td>
+            </tr>
+        </table>
+
+        <h3>Returns</h3>
+        <p><code>{ countries: [ ... ] }</code> – list of countries in the timezone.</p>
+
+        <h3>Example</h3>
+        <div class="example">
+            GET /getCountriesByTimezone?timezone=IST
+            Accept: application/json
+
+            200 OK
+            {
+            "countries": [ { "name": "India", ... } ]
+            }
+        </div>
+    </section>
+
+    <hr>
+
+    <section>
+        <h2>GET <code>/getCountriesByCapital</code></h2>
+        <p>Retrieve countries by their capital city name.</p>
+
+        <h3>Supported Methods</h3>
+        <ul>
+            <li><code>GET</code></li>
+            <li><code>HEAD</code></li>
+        </ul>
+
+        <h3>Query Parameters</h3>
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Required</th>
+                <th>Description</th>
+            </tr>
+            <tr>
+                <td>capital</td>
+                <td>string</td>
+                <td>required</td>
+                <td>Exact capital name</td>
+            </tr>
+        </table>
+
+        <h3>Returns</h3>
+        <p><code>{ countries: [ ... ] }</code> – list of countries matching the capital.</p>
+
+        <h3>Example</h3>
+        <div class="example">
+            GET /getCountriesByCapital?capital=Paris
+            Accept: application/json
+
+            200 OK
+            {
+            "countries": [ { "name": "France", ... } ]
+            }
+        </div>
+    </section>
+
+    <hr>
+
+    <section>
+        <h2>POST <code>/addCountry</code></h2>
+        <p>Add a new country to the in-memory dataset. If the country already exists, it's updated instead (204
+            response).</p>
+
+        <h3>Supported Methods</h3>
+        <ul>
+            <li><code>POST</code></li>
+        </ul>
+
+        <h3>Body Parameters</h3>
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Required</th>
+                <th>Description</th>
+            </tr>
+            <tr>
+                <td>name</td>
+                <td>string</td>
+                <td>required</td>
+                <td>Country name</td>
+            </tr>
+            <tr>
+                <td>capital</td>
+                <td>string</td>
+                <td>required</td>
+                <td>Capital city</td>
+            </tr>
+            <tr>
+                <td>region</td>
+                <td>string</td>
+                <td>required</td>
+                <td>Region</td>
+            </tr>
+        </table>
+
+        <h3>Returns</h3>
+        <ul>
+            <li><code>201</code> with message if added</li>
+            <li><code>204</code> if updated existing entry</li>
+            <li><code>400</code> if missing fields</li>
+        </ul>
+
+        <h3>Example</h3>
+        <div class="example">
+            POST /addCountry
+            Content-Type: application/json
+            Accept: application/json
+
+            {
+            "name": "test1",
+            "capital": "test 1 capital",
+            "region": "test 1 region"
+            }
+
+            201 Created
+            {
+            "message": "Added country test1",
+            "id": "created"
+            }
+        </div>
+    </section>
+
+    <hr>
+
+    <section>
+        <h2>POST <code>/editCountry</code></h2>
+        <p>Edit fields for an existing country. Returns 404 if the country is not found.</p>
+
+        <h3>Supported Methods</h3>
+        <ul>
+            <li><code>POST</code></li>
+        </ul>
+
+        <h3>Body Parameters</h3>
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Required</th>
+                <th>Description</th>
+            </tr>
+            <tr>
+                <td>name</td>
+                <td>string</td>
+                <td>required</td>
+                <td>Name of the country to edit</td>
+            </tr>
+            <tr>
+                <td>(other fields)</td>
+                <td>string</td>
+                <td>optional</td>
+                <td>Any other fields to update (e.g., capital, region)</td>
+            </tr>
+        </table>
+
+        <h3>Returns</h3>
+        <ul>
+            <li><code>200</code> if updated</li>
+            <li><code>404</code> if not found</li>
+            <li><code>400</code> if missing name</li>
+        </ul>
+
+        <h3>Example</h3>
+        <div class="example">
+            POST /editCountry
+            Content-Type: application/json
+            Accept: application/json
+
+            {
+            "name": "India",
+            "capital": "New Delhi (Updated)"
+            }
+
+            200 OK
+            {
+            "message": "Updated country India",
+            "id": "updated"
+            }
+        </div>
+    </section>
+
+    <hr>
+
+    <section>
+        <h2>404 Not Found</h2>
+        <p>Any request to a non-existent endpoint returns:</p>
+        <div class="example">
+            GET /nonexistent
+            404 Not Found
+            {
+            "message": "The page you are looking for was not found",
+            "id": "notFound"
+            }
+        </div>
+    </section>
+
+</body>
+
+</html>

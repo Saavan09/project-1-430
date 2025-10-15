@@ -63,6 +63,7 @@ const onRequest = (req, res) => {
     const query = parsedUrl.query;
     req.query = query;
 
+    //serve main client html page
     if (pathname === '/' || pathname === '/client.html') {
         fs.readFile(path.join(__dirname, '../client/client.html'), (err, data) => {
             if (err) {
@@ -78,6 +79,7 @@ const onRequest = (req, res) => {
         return;
     }
 
+    //serve stylesheet
     if (pathname === '/style.css') {
         fs.readFile(path.join(__dirname, '../client/style.css'), (err, data) => {
             if (err) {
@@ -93,7 +95,7 @@ const onRequest = (req, res) => {
         return;
     }
 
-    //empty right now but serving here just in case
+    //serve client js which connects html to backend
     if (pathname === '/index.js') {
         fs.readFile(path.join(__dirname, '../client/index.js'), (err, data) => {
             if (err) {
@@ -113,6 +115,7 @@ const onRequest = (req, res) => {
     }
 
 
+    //all possible endpoints
     switch (pathname) {
         case '/getCountries':
             if (req.method === 'GET') {

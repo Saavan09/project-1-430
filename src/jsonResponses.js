@@ -20,6 +20,7 @@ const respondJSONMeta = (request, response, status) => {
 //GET endpoints
 
 
+//gets country names alongside their region, subregion, and capital
 const getCountries = (request, response, countries) => {
     const { region, subregion, name } = request.query;
     let filteredCountries = countries;
@@ -49,10 +50,12 @@ const getCountries = (request, response, countries) => {
     return respondJSON(request, response, 200, { countries: filteredCountries });
 };
 
+//head
 const getCountriesMeta = (request, response) => {
     respondJSONMeta(request, response, 200);
 };
 
+//gets countries specifically based on name
 const getCountryByName = (request, response, countries) => {
     const { name } = request.query;
 
@@ -74,10 +77,12 @@ const getCountryByName = (request, response, countries) => {
     return respondJSON(request, response, 200, { country });
 };
 
+//head
 const getCountryByNameMeta = (request, response) => {
     respondJSONMeta(request, response, 200);
 };
 
+//gets countries specifically based on timezone
 const getCountriesByTimezone = (request, response, countries) => {
     const { timezone } = request.query;
 
@@ -97,10 +102,12 @@ const getCountriesByTimezone = (request, response, countries) => {
     return respondJSON(request, response, 200, { countries: filteredCountries });
 };
 
+//head
 const getCountriesByTimezoneMeta = (request, response) => {
     respondJSONMeta(request, response, 200);
 };
 
+//gets countries based on their capital
 const getCountriesByCapital = (request, response, countries) => {
     const { capital } = request.query;
 
@@ -122,6 +129,7 @@ const getCountriesByCapital = (request, response, countries) => {
     return respondJSON(request, response, 200, { countries: filteredCountries });
 };
 
+//head
 const getCountriesByCapitalMeta = (request, response) => {
     respondJSONMeta(request, response, 200);
 };
@@ -131,6 +139,7 @@ const getCountriesByCapitalMeta = (request, response) => {
 //POST enpoints
 
 
+//creates a new country and adds it to the database. needs name capital and region
 const addCountry = (request, response, body, countries) => {
     if (!body.name || !body.capital || !body.region) {
         return respondJSON(request, response, 400, {
@@ -159,6 +168,7 @@ const addCountry = (request, response, body, countries) => {
     });
 };
 
+//edit country that already exists in database. changes its fields
 const editCountry = (request, response, body, countries) => {
     if (!body.name) {
         return respondJSON(request, response, 400, {
